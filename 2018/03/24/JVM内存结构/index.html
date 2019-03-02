@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JVM内存结构 | Hexo</title>
+  <title>JVM内存结构 | 私人笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一、定义1、堆：FIFO队列优先，先进先出。jvm只有一个堆区被所有线程所共享！堆存放在二级缓存中，调用对象的速度相对慢一些，生命周期由虚拟机的垃圾回收机制定。2、栈：FILO先进后出，暂存数据的地方。每个线程都包含一个栈区！栈存放在一级缓存中，存取速度较快，“栈是限定仅在表头进行插入和删除操作的线性表”。3、方法区：用来存放方法和static变量。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM内存结构">
 <meta property="og:url" content="http://yoursite.com/2018/03/24/JVM内存结构/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="私人笔记">
 <meta property="og:description" content="一、定义1、堆：FIFO队列优先，先进先出。jvm只有一个堆区被所有线程所共享！堆存放在二级缓存中，调用对象的速度相对慢一些，生命周期由虚拟机的垃圾回收机制定。2、栈：FILO先进后出，暂存数据的地方。每个线程都包含一个栈区！栈存放在一级缓存中，存取速度较快，“栈是限定仅在表头进行插入和删除操作的线性表”。3、方法区：用来存放方法和static变量。">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-04-05T11:55:02.691Z">
@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="JVM内存结构">
 <meta name="twitter:description" content="一、定义1、堆：FIFO队列优先，先进先出。jvm只有一个堆区被所有线程所共享！堆存放在二级缓存中，调用对象的速度相对慢一些，生命周期由虚拟机的垃圾回收机制定。2、栈：FILO先进后出，暂存数据的地方。每个线程都包含一个栈区！栈存放在一级缓存中，存取速度较快，“栈是限定仅在表头进行插入和删除操作的线性表”。3、方法区：用来存放方法和static变量。">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="私人笔记" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -47,11 +47,13 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src class="js-avatar">
+			<img src="/img/i.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">bujie356</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">羽毛</p>
 		
 
 		<nav class="header-menu">
@@ -108,8 +110,10 @@
 				<img src class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">bujie356</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>羽毛<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -339,7 +343,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 bujie356
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

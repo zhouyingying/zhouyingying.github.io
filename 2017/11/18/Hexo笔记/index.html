@@ -6,23 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo笔记 | Hexo</title>
+  <title>Hexo笔记 | 私人笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;记录一些在学习编程中遇到的问题技巧工具等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo笔记">
 <meta property="og:url" content="http://yoursite.com/2017/11/18/Hexo笔记/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="私人笔记">
 <meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;记录一些在学习编程中遇到的问题技巧工具等。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2017/11/18/Hexo笔记/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/11/18/Hexo笔记/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/11/18/Hexo笔记/2.png">
 <meta property="og:image" content="http://yoursite.com/2017/11/18/Hexo笔记/本地图片测试/logo.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/11/18/Hexo笔记/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/11/18/Hexo笔记/4.jpg">
 <meta property="og:updated_time" content="2018-04-01T14:34:59.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo笔记">
 <meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;记录一些在学习编程中遇到的问题技巧工具等。">
-<meta name="twitter:image" content="http://yoursite.com/2017/11/18/Hexo笔记/本地图片测试/logo.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/18/Hexo笔记/3.jpg">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="私人笔记" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -49,11 +54,13 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src class="js-avatar">
+			<img src="/img/i.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">bujie356</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">羽毛</p>
 		
 
 		<nav class="header-menu">
@@ -110,8 +117,10 @@
 				<img src class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">bujie356</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>羽毛<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -181,16 +190,16 @@
 <p>2.安装git软件（<a href="https://git-for-windows.github.io/）" target="_blank" rel="noopener">https://git-for-windows.github.io/）</a></p>
 <p>3.安装node.js（<a href="https://nodejs.org/en/）" target="_blank" rel="noopener">https://nodejs.org/en/）</a></p>
 <p>4.在硬盘内新建一个文件夹，用来防止hexo相关的内容。</p>
-<p>5.在上述文件夹下点击鼠标右键，选中“Git Bash Here”,可以看到下面的窗口<br>  </p>
-<p>6.执行如下命令安装Hexo：sudo npm install -g hexo<br>  初始化然后，执行init命令初始化hexo,命令：hexo init<br>  </p>
+<p>5.在上述文件夹下点击鼠标右键，选中“Git Bash Here”,可以看到下面的窗口<br>  <img src="/2017/11/18/Hexo笔记/3.jpg" title="hexo控制台"></p>
+<p>6.执行如下命令安装Hexo：sudo npm install -g hexo<br>  初始化然后，执行init命令初始化hexo,命令：hexo init<br>  <img src="/2017/11/18/Hexo笔记/1.jpg" title="配置文件"></p>
 <p>7.输入 “hexo s”启动项目，在“<a href="http://localhost:4000”这个目录下访问网站，ctrl+c并不是复制url链接，而是停止网站。" target="_blank" rel="noopener">http://localhost:4000”这个目录下访问网站，ctrl+c并不是复制url链接，而是停止网站。</a></p>
-
+<img src="/2017/11/18/Hexo笔记/2.png" title="配置文件">
 <p>8.hexo文件夹下的  _config.yml 文件是网站的配置文件，<br>翻到最下面，改成我这样子的<br>deploy:<br>     type: git<br>     repo: <a href="https://github.com/zhouyingying/zhouyingying.github.io.git" target="_blank" rel="noopener">https://github.com/zhouyingying/zhouyingying.github.io.git</a><br>     branch: master<br>然后执行命令：<br>npm install hexo-deployer-git –save<br>9.hexo d 将网站上传到github,第一次上传的时候会要求验证github账号,在浏览器中输入“<a href="http://zhouyingying.github.io/”就可以看到自己的网站了。" target="_blank" rel="noopener">http://zhouyingying.github.io/”就可以看到自己的网站了。</a></p>
 <h3 id="hexo技巧"><a href="#hexo技巧" class="headerlink" title="hexo技巧"></a>hexo技巧</h3><p>1.一些命令<br>hexo new”postName” #新建文章<br>hexo new page”pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #将.deploy目录部署到GitHub<br>hexo help # 查看帮助<br>hexo version #查看Hexo的版本</p>
 <p>2.在文章中插入图片<br>a)在_config.yml配置文件中找到“post_asset_folder:false。”配置项，改为true;<br>b）hexo new”postName”命令执行后，在_posts文件夹下就会生成一个跟文章名字一样的文件夹，将该文章相关的图片放在对应的目录下。<br>c)使用的时候，3.0之前的版本使用“<img src="本地图片测试/logo.jpg" alt="alt值">”，3.0之后的版本使用“”</p>
 <p>3.代码框效果怎么实现</p>
-
-<p>其中“xxx”是代码，“<code>`</code>Java”类似于标签，java可以替换成其他语言。效果如下：<br></p>
+<img src="/2017/11/18/Hexo笔记/5.jpg" title="代码框">
+<p>其中“xxx”是代码，“<code>`</code>Java”类似于标签，java可以替换成其他语言。效果如下：<br><img src="/2017/11/18/Hexo笔记/4.jpg" title="代码框效果"></p>
 <p>5.Hexo一些写法<br>粗体：在字体两侧分别加两个星号 *<em><br>文章简介：由三部分组成，第一部分”&lt;这里是感叹号–”；第二部分：more；第三部分:”–&gt;”<br>分割线：分割线的语法只需要三个星号</em>或者三个小短线 - 号，例如：<br>斜体：将需要设置为斜体的文字两端使用一个 * （或者 _ ） 夹起来，快捷键 Ctrl + I ；<br>删除线：在需要设置删除线的文字两侧加两个波浪线 ~~ 夹起来，可以表示删除文字；<br>空格：两个“&#160; &#160;”代表一个空格<br>外链接：外链接由前后两个部分组成，前一部分使用中括号，里面文字为外链接展示的文字；后一部分使用小括号，括号内为外链接的URL。<br>分级标题：使用#号表示。#号越多则标题级别越低。</p>
 <p>4.hexo d报错</p>
 <p>第一删除你hexo 下面的.deploy_git文件夹<br>第二 运行 “$ git config –global core.autocrlf false”<br>第三 重新 hexo clean-&gt;hexo g-&gt;hexo d</p>
@@ -352,7 +361,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 bujie356
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

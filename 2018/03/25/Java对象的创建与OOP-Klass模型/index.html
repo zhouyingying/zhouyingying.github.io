@@ -6,21 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java对象的创建与OOP-Klass模型 | Hexo</title>
+  <title>Java对象的创建与OOP-Klass模型 | 私人笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="对java对象创建的理解入门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java对象的创建与OOP-Klass模型">
 <meta property="og:url" content="http://yoursite.com/2018/03/25/Java对象的创建与OOP-Klass模型/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="私人笔记">
 <meta property="og:description" content="对java对象创建的理解入门">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/03/25/Java对象的创建与OOP-Klass模型/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/25/Java对象的创建与OOP-Klass模型/2.png">
 <meta property="og:updated_time" content="2018-04-06T07:11:34.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java对象的创建与OOP-Klass模型">
 <meta name="twitter:description" content="对java对象创建的理解入门">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/25/Java对象的创建与OOP-Klass模型/1.png">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="私人笔记" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -47,11 +50,13 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src class="js-avatar">
+			<img src="/img/i.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">bujie356</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">羽毛</p>
 		
 
 		<nav class="header-menu">
@@ -108,8 +113,10 @@
 				<img src class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">bujie356</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>羽毛<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -185,7 +192,7 @@
 <p>2.对象的堆内存布局</p>
 <p>对象创建完毕，并且已经在Java堆中分配了内存，那么对象在堆内存是如何进行布局的呢？<br>以HotSpot虚拟机为例，对象在堆内存的布局分为三个区域，分别是对象头（Header）、实例数据（Instance Data）、对齐填充（Padding）。</p>
 <p>对象头：对象头包括两部分信息分别是Mark World和元数据指针，Mark World用于存储对象运行时的数据，比如HashCode、锁状态标志、GC分代年龄等。而元数据指针用于指向方法区的中目标类的类型信息，通过元数据指针可以确定对象的具体类型。<br>实例数据：用于存储对象中的各种类型的字段信息（包括从父类继承来的）。<br>对齐填充：对齐填充不一定存在，起到了占位符的作用，没有特别的含义。<br>对象的内存布局如下图所示。</p>
-
+<img src="/2018/03/25/Java对象的创建与OOP-Klass模型/1.png" title="堆内存布局">
 <p>3.HotSpot的对象模型</p>
 <p>HotSpot中采用了OOP-Klass模型，它是用来描述Java对象实例的一种模型，OOP（Ordinary Object Pointer）指的是普通对象指针，而Klass用来描述对象实例的具体类型。<br>HotSpot中，用instanceOopDesc 和 arrayOopDesc 来描述对象头，其中arrayOopDesc对象用于描述数组类型。<br>instanceOopDesc的代码如下所示。<br>openjdk/hotspot/src/share/vm/oops/instanceOop.hpp</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class instanceOopDesc : public oopDesc &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// aligned header size.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">header_size</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> sizeof(instanceOopDesc)/HeapWordSize; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If compressed, the offset of the fields of the instance may not be aligned.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">base_offset_in_bytes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// offset computation code breaks if UseCompressedClassPointers</span></span><br><span class="line">    <span class="comment">// only is true</span></span><br><span class="line">    <span class="keyword">return</span> (UseCompressedOops &amp;&amp; UseCompressedClassPointers) ?</span><br><span class="line">             klass_gap_offset_in_bytes() :</span><br><span class="line">             sizeof(instanceOopDesc);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">static</span> bool <span class="title">contains_field_offset</span><span class="params">(<span class="keyword">int</span> offset, <span class="keyword">int</span> nonstatic_field_size)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> base_in_bytes = base_offset_in_bytes();</span><br><span class="line">    <span class="keyword">return</span> (offset &gt;= base_in_bytes &amp;&amp;</span><br><span class="line">            (offset-base_in_bytes) &lt; nonstatic_field_size * heapOopSize);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;<span class="number">0</span></span><br></pre></td></tr></table></figure>
@@ -194,7 +201,7 @@
 <p>instanceKlass的代码如下所示。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class InstanceKlass: public Klass &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">enum</span> ClassState &#123;</span><br><span class="line">    allocated,                          <span class="comment">// allocated (but not yet linked)</span></span><br><span class="line">    loaded,                             <span class="comment">// loaded and inserted in class hierarchy (but not linked yet)</span></span><br><span class="line">    linked,                             <span class="comment">// successfully linked/verified (but not initialized yet)</span></span><br><span class="line">    being_initialized,                  <span class="comment">// currently running class initializer</span></span><br><span class="line">    fully_initialized,                  <span class="comment">// initialized (successfull final state)</span></span><br><span class="line">    initialization_error                <span class="comment">// error happened during initialization</span></span><br><span class="line">  &#125;;</span><br><span class="line">  ...</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>instanceKlass继承自Klass ，枚举ClassState 用来标识对象的加载进度。<br>知道了OOP-Klass模型，我们就可以分析Java虚拟机是如何通过栈帧中的对象引用找到对应的对象实例，如下图所示。</p>
-
+<img src="/2018/03/25/Java对象的创建与OOP-Klass模型/2.png" title="OOP-Klass模型">
 <p>从图中可以看出，通过栈帧中的对象引用找到Java堆中的instanceOopDesc对象，再通过instanceOopDesc中的元数据指针来找到方法区中的instanceKlass，从而确定该对象的具体类型（这也对应了java的内存模型）。</p>
 <p>总结：<br>类被加载到内存时，就被封装成了klass，klass包含类的元数据信息，像类的方法、常量池这些信息都是存在klass里的，你可以认为它是java里面的java.lang.Class对象，记录了类的全部信息；</p>
 <p>OOP（Ordinary Object Pointer）指的是普通对象指针，它包含MarkWord 和元数据指针，MarkWord用来存储当前指针指向的对象运行时的一些状态数据；元数据指针则指向klass,用来告诉你当前指针指向的对象是什么类型，也就是使用哪个类来创建出来的；</p>
@@ -357,7 +364,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 bujie356
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

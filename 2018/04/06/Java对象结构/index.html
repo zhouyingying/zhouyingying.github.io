@@ -6,21 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java对象结构 | Hexo</title>
+  <title>Java对象结构 | 私人笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="对java对象结构的了解解析。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java对象结构">
 <meta property="og:url" content="http://yoursite.com/2018/04/06/Java对象结构/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="私人笔记">
 <meta property="og:description" content="对java对象结构的了解解析。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/04/06/Java对象结构/1.png">
 <meta property="og:updated_time" content="2018-04-06T06:14:08.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java对象结构">
 <meta name="twitter:description" content="对java对象结构的了解解析。">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/06/Java对象结构/1.png">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="私人笔记" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -47,11 +49,13 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src class="js-avatar">
+			<img src="/img/i.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">bujie356</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">羽毛</p>
 		
 
 		<nav class="header-menu">
@@ -108,8 +112,10 @@
 				<img src class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">bujie356</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>羽毛<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -176,7 +182,7 @@
       
         <p>对java对象结构的了解解析。<br><a id="more"></a></p>
 <p>&#160; &#160; &#160; &#160; 在HotSpot虚拟机（最新的jvm虚拟机）中，对象在内存中存储的布局可以分为3块区域：对象头（Header）、实例数据（Instance Data）和对齐填充（Padding）。下图是普通对象实例与数组对象实例的数据结构：</p>
-
+<img src="/2018/04/06/Java对象结构/1.png" title="数据结构">
 <h3 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h3><p>HotSpot虚拟机的对象头包括两部分信息：</p>
 <p>1.markword<br>&#160; &#160; &#160; &#160; markword,用于存储对象自身的运行时数据，如哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位的虚拟机（未开启压缩指针）中分别为32bit和64bit，官方称它为“MarkWord”。<br>2.klass<br>&#160; &#160; &#160; &#160; 对象头的另外一部分是klass类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例.<br>3.数组长度（只有数组对象有）<br>&#160; &#160; &#160; &#160; 如果对象是一个数组, 那在对象头中还必须有一块数据用于记录数组长度.</p>
 <h3 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h3><p>&#160; &#160; &#160; &#160;实例数据部分是对象真正存储的有效信息，也是在程序代码中所定义的各种类型的字段内容。无论是从父类继承下来的，还是在子类中定义的，都需要记录起来。</p>
@@ -345,7 +351,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 bujie356
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
