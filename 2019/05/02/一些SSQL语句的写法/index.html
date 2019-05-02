@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 私人笔记</title>
+  <title>一些SSQL语句的写法 | 私人笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="私人笔记">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;记录在平时开发过程中使用较多的一些sql写法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些SSQL语句的写法">
+<meta property="og:url" content="http://yoursite.com/2019/05/02/一些SSQL语句的写法/index.html">
 <meta property="og:site_name" content="私人笔记">
+<meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;记录在平时开发过程中使用较多的一些sql写法">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-02T12:49:18.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="私人笔记">
+<meta name="twitter:title" content="一些SSQL语句的写法">
+<meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;记录在平时开发过程中使用较多的一些sql写法">
   
     <link rel="alternative" href="/atom.xml" title="私人笔记" type="application/atom+xml">
   
@@ -154,37 +158,72 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-一些SSQL语句的写法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/02/一些SSQL语句的写法/" class="archive-article-date">
-  	<time datetime="2019-05-02T12:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-02</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/02/一些SSQL语句的写法/">一些SSQL语句的写法</a>
+    <h1 class="article-title" itemprop="name">
+      一些SSQL语句的写法
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2019/05/02/一些SSQL语句的写法/" class="archive-article-date">
+  	<time datetime="2019-05-02T12:32:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#160; &#160; &#160; &#160;记录在平时开发过程中使用较多的一些sql写法<br><a id="more"></a><br>1.库是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if exists(<span class="keyword">select</span> * <span class="keyword">from</span> master..sysdatabases <span class="keyword">where</span> <span class="keyword">name</span>=N<span class="string">'库名'</span>)</span><br><span class="line">print <span class="string">'exists'</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">print <span class="string">'not exists'</span></span><br></pre></td></tr></table></figure></p>
+<p>2.判断要创建的表名是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if exists (<span class="keyword">select</span> * <span class="keyword">from</span> dbo.sysobjects <span class="keyword">where</span> <span class="keyword">id</span> = object_id(N<span class="string">'[dbo].[表名]'</span>) <span class="keyword">and</span> OBJECTPROPERTY(<span class="keyword">id</span>, N<span class="string">'IsUserTable'</span>) = <span class="number">1</span>)</span><br><span class="line"><span class="comment">-- 删除表</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> [dbo].[表名]</span><br><span class="line"><span class="keyword">GO</span></span><br></pre></td></tr></table></figure></p>
+<p>3.判断要创建临时表是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">If Object_Id('Tempdb.dbo.<span class="comment">#Test') Is Not Null</span></span><br><span class="line"><span class="keyword">Begin</span></span><br><span class="line">print <span class="string">'存在'</span></span><br><span class="line"><span class="keyword">End</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line"><span class="keyword">Begin</span></span><br><span class="line">print <span class="string">'不存在'</span></span><br><span class="line"><span class="keyword">End</span></span><br></pre></td></tr></table></figure></p>
+<p>4.判断要创建的存储过程名是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if exists (<span class="keyword">select</span> * <span class="keyword">from</span> dbo.sysobjects <span class="keyword">where</span> <span class="keyword">id</span> = object_id(N<span class="string">'[dbo].[存储过程名]'</span>) <span class="keyword">and</span> OBJECTPROPERTY(<span class="keyword">id</span>, N<span class="string">'IsProcedure'</span>) = <span class="number">1</span>)</span><br><span class="line"><span class="comment">-- 删除存储过程</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">procedure</span> [dbo].[存储过程名]</span><br><span class="line"><span class="keyword">GO</span></span><br></pre></td></tr></table></figure></p>
+<p>5.判断要创建的视图名是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if exists (<span class="keyword">select</span> * <span class="keyword">from</span> dbo.sysobjects <span class="keyword">where</span> <span class="keyword">id</span> = object_id(N<span class="string">'[dbo].[视图名]'</span>) <span class="keyword">and</span> OBJECTPROPERTY(<span class="keyword">id</span>, N<span class="string">'IsView'</span>) = <span class="number">1</span>)</span><br><span class="line"><span class="comment">-- 删除视图</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">view</span> [dbo].[视图名]</span><br><span class="line"><span class="keyword">GO</span></span><br></pre></td></tr></table></figure></p>
+<p>6.判断要创建的函数名是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if exists (<span class="keyword">select</span> * <span class="keyword">from</span> dbo.sysobjects <span class="keyword">where</span> <span class="keyword">id</span> = object_id(N<span class="string">'[dbo].[函数名]'</span>) <span class="keyword">and</span> xtype <span class="keyword">in</span> (N<span class="string">'FN'</span>, N<span class="string">'IF'</span>, N<span class="string">'TF'</span>))</span><br><span class="line"><span class="comment">-- 删除函数</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">function</span> [dbo].[函数名]</span><br><span class="line"><span class="keyword">GO</span></span><br><span class="line"><span class="keyword">if</span> col_length(<span class="string">'表名'</span>, <span class="string">'列名'</span>) <span class="keyword">is</span> <span class="literal">null</span></span><br><span class="line">print <span class="string">'不存在'</span></span><br><span class="line"><span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> sysobjects <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> syscolumns <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'列名'</span>) <span class="keyword">and</span> <span class="keyword">name</span>=<span class="string">'表名'</span></span><br></pre></td></tr></table></figure></p>
+<p>7.判断A表中的C字段是否存在<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IF COL_LENGTH('A', 'C') IS NOT NULL  </span><br><span class="line">    PRINT N'存在'  </span><br><span class="line">ELSE  </span><br><span class="line">    PRINT N'不存在'</span><br></pre></td></tr></table></figure></p>
+<p>8.查询表的条数<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  a.name <span class="keyword">AS</span>  表名, <span class="keyword">MAX</span>(b.rows) <span class="keyword">AS</span>  记录条数</span><br><span class="line"><span class="keyword">FROM</span>  sys.sysobjects <span class="keyword">AS</span> a</span><br><span class="line"> <span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.sysindexes  <span class="keyword">AS</span> b  <span class="keyword">ON</span> a.id =  b.id</span><br><span class="line"><span class="keyword">WHERE</span>    (a.xtype =  <span class="string">'u'</span>) </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>  a.name</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> 记录条数 <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure></p>
+<p>9.查询两个时间之间的差值<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--yy年，dd日，mm月</span></span><br><span class="line">datediff(dd,日期字段,getdate())</span><br></pre></td></tr></table></figure></p>
+<p>10.SqlServer实现limit效果<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span></span><br><span class="line">           *</span><br><span class="line"> <span class="keyword">FROM</span>      ( <span class="keyword">SELECT</span>    ROW_NUMBER() <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> CreateDate <span class="keyword">DESC</span>  ) <span class="keyword">AS</span> <span class="keyword">row</span> ,</span><br><span class="line">                       *</span><br><span class="line">             <span class="keyword">FROM</span>      BJQE_LiShiFW</span><br><span class="line">           ) <span class="keyword">List</span></span><br><span class="line"> <span class="keyword">WHERE</span>     <span class="keyword">row</span> <span class="keyword">BETWEEN</span> <span class="number">1</span> <span class="keyword">AND</span> <span class="number">25</span></span><br></pre></td></tr></table></figure></p>
+<p>11.关联更新<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> A <span class="keyword">SET</span> A1 = B1, A2 = B2, A3 = B3 <span class="keyword">FROM</span> A, B <span class="keyword">WHERE</span> A.ID = B.ID</span><br></pre></td></tr></table></figure></p>
+<p>12.sql备份<br>注：一般备份使用sqlServer控制台就能实现，某些情况下无法使用可以用下面这招，原理是利用bat来调用sql来备份，而bat本身可以作为计算机的计划任务<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--backup.sql（实现备份的sql语句）</span></span><br><span class="line"><span class="keyword">DECLARE</span> @backupTime <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line"><span class="keyword">DECLARE</span> @fileName <span class="built_in">VARCHAR</span>(<span class="number">1000</span>)  </span><br><span class="line"><span class="keyword">SELECT</span>  @backupTime=(<span class="keyword">CONVERT</span>(<span class="built_in">VARCHAR</span>(<span class="number">8</span>), <span class="keyword">GETDATE</span>(), <span class="number">112</span>) +<span class="keyword">REPLACE</span>(<span class="keyword">CONVERT</span>(<span class="built_in">VARCHAR</span>(<span class="number">5</span>), <span class="keyword">GETDATE</span>(), <span class="number">114</span>), <span class="string">':'</span>, <span class="string">''</span>))  </span><br><span class="line"><span class="keyword">SELECT</span>  @fileName=<span class="string">'d:\db\B_'</span>+@backupTime+<span class="string">'.bak'</span></span><br><span class="line"><span class="keyword">backup</span> <span class="keyword">database</span> ZZB_NQGB0114 <span class="keyword">to</span> disk=@fileName</span><br><span class="line"></span><br><span class="line"><span class="comment">--bat备份写法（out.txt是日志文件）</span></span><br><span class="line">sqlcmd  -S .\sql2008 -U sa -P <span class="number">123</span>sa -i d:\db\backup.sql -o out.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">--bat删除附件写法（90是指删除90天之前的日志）</span></span><br><span class="line">forfiles /p F:\<span class="keyword">sql</span> /m *.bak /d <span class="number">-90</span> /c <span class="string">"cmd /c del /f @path"</span></span><br></pre></td></tr></table></figure></p>
+<p>13.列转行<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--以逗号为分隔符</span></span><br><span class="line"><span class="keyword">SELECT</span> DmAbr1+<span class="string">','</span> <span class="keyword">FROM</span> GB3304 <span class="keyword">FOR</span> <span class="keyword">XML</span> <span class="keyword">PATH</span>(<span class="string">''</span>)</span><br></pre></td></tr></table></figure></p>
+<p>15.一些日期格式转换<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">0</span>): <span class="number">05</span> <span class="number">16</span> <span class="number">2006</span> <span class="number">10</span>:<span class="number">57</span>AM</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">1</span>): <span class="number">05</span>/<span class="number">16</span>/<span class="number">06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">2</span>): <span class="number">06.05</span><span class="number">.16</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">3</span>): <span class="number">16</span>/<span class="number">05</span>/<span class="number">06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">4</span>): <span class="number">16.05</span><span class="number">.06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">5</span>): <span class="number">16</span><span class="number">-05</span><span class="number">-06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">6</span>): <span class="number">16</span> <span class="number">05</span> <span class="number">06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">7</span>): <span class="number">05</span> <span class="number">16</span>, <span class="number">06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">8</span>): <span class="number">10</span>:<span class="number">57</span>:<span class="number">46</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">9</span>): <span class="number">05</span> <span class="number">16</span> <span class="number">2006</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">46</span>:<span class="number">827</span>AM</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">10</span>): <span class="number">05</span><span class="number">-16</span><span class="number">-06</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">11</span>): <span class="number">06</span>/<span class="number">05</span>/<span class="number">16</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">12</span>): <span class="number">060516</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">13</span>): <span class="number">16</span> <span class="number">05</span> <span class="number">2006</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">46</span>:<span class="number">937</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">14</span>): <span class="number">10</span>:<span class="number">57</span>:<span class="number">46</span>:<span class="number">967</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">20</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">47</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">21</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">47.157</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">22</span>): <span class="number">05</span>/<span class="number">16</span>/<span class="number">06</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">47</span> AM</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">23</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">24</span>): <span class="number">10</span>:<span class="number">57</span>:<span class="number">47</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">25</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">47.250</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">100</span>): <span class="number">05</span> <span class="number">16</span> <span class="number">2006</span> <span class="number">10</span>:<span class="number">57</span>AM</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">101</span>): <span class="number">05</span>/<span class="number">16</span>/<span class="number">2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">102</span>): <span class="number">2006.05</span><span class="number">.16</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">103</span>): <span class="number">16</span>/<span class="number">05</span>/<span class="number">2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">104</span>): <span class="number">16.05</span><span class="number">.2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">105</span>): <span class="number">16</span><span class="number">-05</span><span class="number">-2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">106</span>): <span class="number">16</span> <span class="number">05</span> <span class="number">2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">107</span>): <span class="number">05</span> <span class="number">16</span>, <span class="number">2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">108</span>): <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">109</span>): <span class="number">05</span> <span class="number">16</span> <span class="number">2006</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span>:<span class="number">437</span>AM</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">110</span>): <span class="number">05</span><span class="number">-16</span><span class="number">-2006</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">111</span>): <span class="number">2006</span>/<span class="number">05</span>/<span class="number">16</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">112</span>): <span class="number">20060516</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">113</span>): <span class="number">16</span> <span class="number">05</span> <span class="number">2006</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span>:<span class="number">513</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">114</span>): <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span>:<span class="number">547</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">120</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">121</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">49.700</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">126</span>): <span class="number">2006</span><span class="number">-05</span><span class="number">-16</span>T10:<span class="number">57</span>:<span class="number">49.827</span></span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">130</span>): <span class="number">18</span> ???? ?????? <span class="number">1427</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span>:<span class="number">907</span>AM</span><br><span class="line"><span class="keyword">Select</span> <span class="keyword">CONVERT</span>(<span class="built_in">varchar</span>(<span class="number">100</span>), <span class="keyword">GETDATE</span>(), <span class="number">131</span>): <span class="number">18</span>/<span class="number">04</span>/<span class="number">1427</span> <span class="number">10</span>:<span class="number">57</span>:<span class="number">49</span>:<span class="number">920</span>AM</span><br></pre></td></tr></table></figure></p>
+<p>16.游标的使用<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> @time_year <span class="keyword">as</span> <span class="built_in">varchar</span>(<span class="number">60</span>)</span><br><span class="line"><span class="keyword">declare</span> @time_year1 <span class="keyword">as</span> <span class="built_in">varchar</span>(<span class="number">60</span>)</span><br><span class="line"><span class="keyword">declare</span> @<span class="keyword">content</span> <span class="keyword">as</span> <span class="keyword">nvarchar</span>(<span class="number">100</span>) </span><br><span class="line"><span class="keyword">declare</span> @content1 <span class="keyword">as</span> <span class="keyword">nvarchar</span>(<span class="number">100</span>) </span><br><span class="line"><span class="keyword">declare</span> @cont <span class="keyword">nvarchar</span>(<span class="number">200</span>)</span><br><span class="line"><span class="keyword">declare</span> @timeTemp <span class="keyword">as</span> <span class="keyword">nvarchar</span>(<span class="number">100</span>) </span><br><span class="line"><span class="keyword">declare</span> @contentTemp <span class="keyword">as</span> <span class="keyword">nvarchar</span>(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">DECLARE</span> @contentINT <span class="built_in">INT</span></span><br><span class="line"><span class="keyword">set</span> @cont=<span class="string">''</span></span><br><span class="line"><span class="keyword">declare</span> cur <span class="keyword">cursor</span></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">Select</span> top <span class="number">3</span>  A15.BJXA1502 ,ZB18_A1517.DmCpt  <span class="keyword">From</span> A15  <span class="keyword">Left</span> <span class="keyword">Outer</span> <span class="keyword">Join</span> ZB18 <span class="keyword">as</span> ZB18_A1517 <span class="keyword">on</span> ZB18_A1517.Dmcod=A15.A1517   <span class="keyword">Where</span> A15.A00=@a00 <span class="keyword">order</span> <span class="keyword">by</span>  A15.BJXA1502 <span class="keyword">desc</span> </span><br><span class="line"><span class="keyword">open</span> cur</span><br><span class="line"><span class="keyword">fetch</span> <span class="keyword">next</span> <span class="keyword">from</span> cur <span class="keyword">into</span> @time_year,@<span class="keyword">content</span></span><br><span class="line"> <span class="keyword">While</span> @@Fetch_Status=<span class="number">0</span> </span><br><span class="line">       <span class="keyword">begin</span> </span><br><span class="line">	 </span><br><span class="line">	<span class="keyword">fetch</span> <span class="keyword">next</span> <span class="keyword">from</span> cur <span class="keyword">into</span> @time_year,@<span class="keyword">content</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">close</span> cur</span><br><span class="line"><span class="keyword">deallocate</span> cur</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> @cont=@cont+<span class="string">'。'</span>;</span><br><span class="line">RETURN @cont</span><br></pre></td></tr></table></figure></p>
+<p>17.不使用游标实现循环效果（好处是相对于游标，如果循环中间出了错误会越过错误继续执行，而游标会停下来）<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">declare</span> @<span class="keyword">id</span> <span class="built_in">int</span></span><br><span class="line">	<span class="keyword">DECLARE</span> @B00 <span class="keyword">NVARCHAR</span>(<span class="number">200</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>   object_id(<span class="string">'tempdb..#t'</span>)  <span class="keyword">is</span> <span class="keyword">not</span>  <span class="literal">null</span> </span><br><span class="line"><span class="keyword">begin</span>				</span><br><span class="line">	<span class="keyword">drop</span> <span class="keyword">table</span> <span class="comment">#t</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="comment">#t ( </span></span><br><span class="line">	[<span class="keyword">id</span>] <span class="built_in">int</span> <span class="keyword">IDENTITY</span> (<span class="number">1</span>, <span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">	B00 <span class="built_in">varchar</span>(<span class="number">200</span>),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="comment">#t(B00) </span></span><br><span class="line">	<span class="keyword">select</span> B00 <span class="keyword">from</span> HBGBUNIT</span><br><span class="line">	</span><br><span class="line"><span class="keyword">select</span> @<span class="keyword">id</span>=<span class="keyword">MIN</span>(<span class="keyword">id</span>) <span class="keyword">from</span> <span class="comment">#t</span></span><br><span class="line"><span class="keyword">while</span> @<span class="keyword">id</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"> </span><br><span class="line">	<span class="keyword">select</span> @B00 = B00 <span class="keyword">from</span> <span class="comment">#t where id = @id</span></span><br><span class="line">		 </span><br><span class="line">。。。。。。。。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">SELECT</span> @<span class="keyword">id</span>=<span class="keyword">MIN</span>(<span class="keyword">id</span>) <span class="keyword">FROM</span> <span class="comment">#t WHERE id&gt;@id</span></span><br><span class="line"><span class="keyword">END</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="comment">#t</span></span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -197,55 +236,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/02/一些SSQL语句的写法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/17/Linux笔记/" class="archive-article-date">
-  	<time datetime="2019-02-17T11:45:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/17/Linux笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/17/Linux笔记/">Linux笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/相关基础//" class="article-tag-list-link color5">相关基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -268,8 +356,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
